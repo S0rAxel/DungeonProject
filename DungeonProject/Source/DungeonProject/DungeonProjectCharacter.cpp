@@ -1,6 +1,7 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "DungeonProjectCharacter.h"
+#include "Interactable.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -60,6 +61,8 @@ void ADungeonProjectCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ADungeonProjectCharacter::Roll);
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AInteractable::Interact);
+
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADungeonProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADungeonProjectCharacter::MoveRight);

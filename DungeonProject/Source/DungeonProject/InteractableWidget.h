@@ -7,7 +7,7 @@
 #include "InteractableWidget.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class DUNGEONPROJECT_API UInteractableWidget : public UUserWidget
@@ -16,5 +16,9 @@ class DUNGEONPROJECT_API UInteractableWidget : public UUserWidget
 
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly) class AInteractable* interactable;
-	
+
+protected:
+	/*UFUNCTION(BlueprintImplementableEvent, BlueprintCosmetic, Category = "User Interface")
+		void PreConstruct(bool IsDesignTime);*/
+
 };

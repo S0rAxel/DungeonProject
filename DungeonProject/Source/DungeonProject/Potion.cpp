@@ -3,3 +3,7 @@
 
 #include "Potion.h"
 
+void APotion::Interact() 
+{
+	Destroy();
+}

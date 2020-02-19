@@ -5,16 +5,12 @@
 #include "Engine.h"
 #include "DungeonProjectCharacter.h"
 
-void APotion::Interact()
+void APotion::Interact(ADungeonProjectCharacter* Character)
 {
-	Character = Cast<ADungeonProjectCharacter>(UGameplayStatics::GetPlayerController(GetWorld(), 0));
-	GEngine->AddOnScreenDebugMessage(1, 5.0f, FColor::Blue, "Interact with Object");
-
 	if (Character != nullptr)
 		Character->potionCount++;
 	else
-		GEngine->AddOnScreenDebugMessage(2, 5.0f, FColor::Red, "Pointer is NULL");
+		GEngine->AddOnScreenDebugMessage(0, 5.0f, FColor::Red, "Pointer is NULL");
 
-	//Destroy();
-
+	Destroy();
 }

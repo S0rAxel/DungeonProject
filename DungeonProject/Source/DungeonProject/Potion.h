@@ -15,5 +15,5 @@ class DUNGEONPROJECT_API APotion : public AInteractable
 	GENERATED_BODY()
 	
 protected:
-	void Interact() override;
+	void Interact(class ADungeonProjectCharacter* Character) override;
 };

@@ -54,7 +54,7 @@ void ADungeonProjectCharacter::Heal(int amount)
 void ADungeonProjectCharacter::Interact()
 {
 	FVector spherePos = GetActorLocation();
-	float sphereRadius = 100.f; 
+	float sphereRadius = 42.f; 
 	TArray<TEnumAsByte<EObjectTypeQuery>> query;
 	TArray<AActor*> ignore;
 	TArray<AActor*> out;
@@ -64,14 +64,19 @@ void ADungeonProjectCharacter::Interact()
 	{
 		auto interactable = Cast<AInteractable>(actor);
 		if (interactable != nullptr)
-			interactable->Interact();
+			interactable->Interact(this);
 	}
+}
+
+void ADungeonProjectCharacter::LockOn()
+{
+
 }
 
 
 void ADungeonProjectCharacter::Tick(float DeltaTime)
 {
-	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Green, FString::FromInt(potionCount));
+
 }
 
 #pragma region Input & Movement
@@ -82,6 +87,7 @@ void ADungeonProjectCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ADungeonProjectCharacter::Roll);
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ADungeonProjectCharacter::Interact);
+	PlayerInputComponent->BindAction("LockOn", IE_Pressed, this, &ADungeonProjectCharacter::Interact);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADungeonProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADungeonProjectCharacter::MoveRight);

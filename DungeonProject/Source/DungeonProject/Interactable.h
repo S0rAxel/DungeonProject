@@ -24,14 +24,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString InteractText;
 
 protected:
-	class ADungeonProjectCharacter* Character;
-protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
 	// Called every frame
-	virtual void Interact();
+	virtual void Interact(class ADungeonProjectCharacter* Character);
 	virtual void Tick(float DeltaTime) override;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;

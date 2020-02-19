@@ -34,7 +34,7 @@ void AInteractable::BeginPlay()
 	widget->SetVisibility(ESlateVisibility::Hidden);
 }
 
-void AInteractable::Interact() { } //Called when interacted with object 
+void AInteractable::Interact(ADungeonProjectCharacter* Character) { } //Called when interacted with object 
 
 void AInteractable::NotifyActorBeginOverlap(AActor* OtherActor) 
 {

@@ -44,6 +44,7 @@ protected:
 public:
 	void Heal(int amount);
 	void Interact();
+	void LockOn();
 	
 	virtual void Tick(float DeltaTime) override;
 	/** Returns CameraBoom subobject **/

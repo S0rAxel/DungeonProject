@@ -39,15 +39,23 @@ void AInteractable::Interact(ADungeonProjectCharacter* Character) { } //Called w
 void AInteractable::NotifyActorBeginOverlap(AActor* OtherActor) 
 {
 	if (OtherActor != nullptr && Cast<ADungeonProjectCharacter>(OtherActor))
+	{
 		if (WidgetComponent->GetUserWidgetObject() != nullptr)
+		{
 			Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Visible);
+		}
+	}
 }
 
 void AInteractable::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	if (OtherActor != nullptr && Cast<ADungeonProjectCharacter>(OtherActor))
-		if(WidgetComponent->GetUserWidgetObject() != nullptr)
+	{
+		if (WidgetComponent->GetUserWidgetObject() != nullptr)
+		{
 			Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
+		}
+	}
 }
 
 // Called every frame
@@ -57,6 +65,8 @@ void AInteractable::Tick(float DeltaTime)
 
 	auto camera = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
 	if (camera != nullptr)
+	{
 		WidgetComponent->SetWorldRotation(UKismetMathLibrary::FindLookAtRotation(WidgetComponent->GetComponentLocation(), camera->GetCameraLocation()));
+	}
 }
 

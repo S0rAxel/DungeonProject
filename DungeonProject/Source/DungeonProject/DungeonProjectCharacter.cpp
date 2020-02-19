@@ -64,7 +64,9 @@ void ADungeonProjectCharacter::Interact()
 	{
 		auto interactable = Cast<AInteractable>(actor);
 		if (interactable != nullptr)
+		{
 			interactable->Interact(this);
+		}
 	}
 }
 
@@ -126,8 +128,6 @@ void ADungeonProjectCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
-
-
 }
 
 #pragma endregion

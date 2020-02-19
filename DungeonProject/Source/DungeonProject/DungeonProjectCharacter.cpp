@@ -1,6 +1,7 @@
 // Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
 
 #include "DungeonProjectCharacter.h"
+#include "Engine.h"
 #include "Interactable.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
@@ -9,6 +10,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADungeonProjectCharacter
@@ -49,9 +51,27 @@ void ADungeonProjectCharacter::Heal(int amount)
 	health += amount;
 }
 
+void ADungeonProjectCharacter::Interact()
+{
+	FVector spherePos = GetActorLocation();
+	float sphereRadius = 100.f; 
+	TArray<TEnumAsByte<EObjectTypeQuery>> query;
+	TArray<AActor*> ignore;
+	TArray<AActor*> out;
+	UKismetSystemLibrary::SphereOverlapActors(this, spherePos, sphereRadius, query, AInteractable::StaticClass(), ignore, out);
+
+	for (auto actor : out)
+	{
+		auto interactable = Cast<AInteractable>(actor);
+		if (interactable != nullptr)
+			interactable->Interact();
+	}
+}
+
+
 void ADungeonProjectCharacter::Tick(float DeltaTime)
 {
-
+	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Green, FString::FromInt(potionCount));
 }
 
 #pragma region Input & Movement
@@ -61,11 +81,11 @@ void ADungeonProjectCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ADungeonProjectCharacter::Roll);
-	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AInteractable::Interact);
-
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ADungeonProjectCharacter::Interact);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADungeonProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADungeonProjectCharacter::MoveRight);
+
 }
 
 void ADungeonProjectCharacter::Roll()
@@ -101,6 +121,7 @@ void ADungeonProjectCharacter::MoveRight(float Value)
 		AddMovementInput(Direction, Value);
 	}
 
-#pragma endregion
 
 }
+
+#pragma endregion

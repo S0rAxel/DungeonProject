@@ -2,7 +2,9 @@
 #include "Engine.h"
 #include "InteractableWidget.h"
 #include "DungeonProjectCharacter.h"
+#include "Components/SceneComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 // Sets default values
 AInteractable::AInteractable()
@@ -19,7 +21,7 @@ AInteractable::AInteractable()
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
 	WidgetComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	
+
 }
 
 // Called when the game starts or when spawned
@@ -32,27 +34,20 @@ void AInteractable::BeginPlay()
 	widget->SetVisibility(ESlateVisibility::Hidden);
 }
 
-void AInteractable::Interact()
-{
-}
+void AInteractable::Interact() { } //Called when interacted with object 
 
 void AInteractable::NotifyActorBeginOverlap(AActor* OtherActor) 
 {
 	if (OtherActor != nullptr && Cast<ADungeonProjectCharacter>(OtherActor))
-	{
-		Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Visible);
-		GEngine->AddOnScreenDebugMessage(1, 5, FColor::Green, TEXT("Character inside"));
-	}
+		if (WidgetComponent->GetUserWidgetObject() != nullptr)
+			Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Visible);
 }
 
 void AInteractable::NotifyActorEndOverlap(AActor* OtherActor)
 {
 	if (OtherActor != nullptr && Cast<ADungeonProjectCharacter>(OtherActor))
-	{
-		Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
-		GEngine->AddOnScreenDebugMessage(1, 5, FColor::Green, TEXT("Character Outside"));
-
-	}
+		if(WidgetComponent->GetUserWidgetObject() != nullptr)
+			Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
 }
 
 // Called every frame
@@ -60,7 +55,8 @@ void AInteractable::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	WidgetComponent->SetWorldRotation(UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->GetCameraRotation());
-	WidgetComponent->AddLocalRotation(FRotator(0, 180, 0));
+	auto camera = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
+	if (camera != nullptr)
+		WidgetComponent->SetWorldRotation(UKismetMathLibrary::FindLookAtRotation(WidgetComponent->GetComponentLocation(), camera->GetCameraLocation()));
 }
 

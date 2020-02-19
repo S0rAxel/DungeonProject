@@ -22,36 +22,30 @@ public:
 	ADungeonProjectCharacter();
 
 public:
-	// COMPONENTS
+	float health = 1.0f;
+	float maxHealth = 1.0f;
+	int humanity = 0;
+	int goldCount = 0;
+	UPROPERTY(BlueprintReadOnly) int potionCount = 0;
 
-	// FIELDS
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) float health = 1.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) float maxHealth = 1.0f;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) int humanity = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) int goldCount = 0;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) int potionCount = 0;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly) FVector characterPosition = { 0, 0, 0 };
+	FVector characterPosition = { 0, 0, 0 };
 
 protected:
 	void Roll();
 
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
-
 	/** Called for side to side input */
 	void MoveRight(float Value);
 
 protected:
-	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	// End of APawn interface
-
+	
 public:
 	void Heal(int amount);
-
+	void Interact();
+	
 	virtual void Tick(float DeltaTime) override;
-
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/

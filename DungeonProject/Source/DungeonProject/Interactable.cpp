@@ -12,16 +12,16 @@ AInteractable::AInteractable()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = MeshComponent;
-
 	BoxComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("Collision"));
-	BoxComponent->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepRelativeTransform);
+	RootComponent = BoxComponent;
+
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	MeshComponent->AttachToComponent(BoxComponent,FAttachmentTransformRules::KeepRelativeTransform);
+
 
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
 	WidgetComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-	WidgetComponent->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
-
+	WidgetComponent->AttachToComponent(BoxComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 // Called when the game starts or when spawned
@@ -30,8 +30,11 @@ void AInteractable::BeginPlay()
 	Super::BeginPlay();
 	
 	auto widget = Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject());
-	widget->interactable = this;
-	widget->SetVisibility(ESlateVisibility::Hidden);
+	if (widget != nullptr)
+	{
+		widget->interactable = this;
+		widget->SetVisibility(ESlateVisibility::Hidden);
+	}
 }
 
 void AInteractable::Interact(ADungeonProjectCharacter* Character) { } //Called when interacted with object 

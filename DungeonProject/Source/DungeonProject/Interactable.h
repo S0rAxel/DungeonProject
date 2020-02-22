@@ -15,11 +15,11 @@ public:
 	// Sets default values for this actor's properties
 	AInteractable();
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly) UStaticMeshComponent* MeshComponent;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (DisplayName = "Mesh")) UStaticMeshComponent* MeshComponent;
 
-	UPROPERTY(VisibleAnywhere) class UBoxComponent* BoxComponent;
+	UPROPERTY(VisibleAnywhere, meta = (DisplayName = "BoxCollider")) class UBoxComponent* BoxComponent;
 
-	UPROPERTY(VisibleAnywhere) class UWidgetComponent* WidgetComponent;
+	UPROPERTY(VisibleAnywhere, meta = (DisplayName = "Widget")) class UWidgetComponent* WidgetComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString InteractText;
 

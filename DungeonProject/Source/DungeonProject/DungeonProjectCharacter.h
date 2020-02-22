@@ -24,8 +24,8 @@ public:
 public:
 	float health = 1.0f;
 	float maxHealth = 1.0f;
-	int humanity = 0;
-	int goldCount = 0;
+	UPROPERTY(BlueprintReadOnly) int humanity = 0;
+	UPROPERTY(BlueprintReadOnly) int goldCount = 0;
 	UPROPERTY(BlueprintReadOnly) int potionCount = 0;
 
 	FVector characterPosition = { 0, 0, 0 };

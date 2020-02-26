@@ -21,7 +21,7 @@ public:
 
 	UPROPERTY(VisibleAnywhere, meta = (DisplayName = "Widget")) class UWidgetComponent* WidgetComponent;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly) FString InteractText;
+	UPROPERTY(EditAnywhere) FString InteractText;
 
 protected:
 	// Called when the game starts or when spawned

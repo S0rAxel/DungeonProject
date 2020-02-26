@@ -16,4 +16,5 @@ class DUNGEONPROJECT_API APotion : public AInteractable
 	
 protected:
 	void Interact(class ADungeonProjectCharacter* Character) override;
+	void Tick(float DeltaTime) override;
 };

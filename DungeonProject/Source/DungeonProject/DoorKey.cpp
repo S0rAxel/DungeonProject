@@ -35,5 +35,6 @@ void ADoorKey::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	MeshComponent->AddLocalRotation(FRotator(0.f, DeltaTime * 200.f, 0.f));
-	MeshComponent->AddRelativeLocation(FVector(0.f, 0.f, UKismetMathLibrary::Clamp(FMath::Sin(UGameplayStatics::GetRealTimeSeconds(GetWorld()) * 100.f), -1.f, 1.f)));
+	float hoverValue = FMath::Clamp(FMath::Sin(UGameplayStatics::GetRealTimeSeconds(GetWorld()) * 5.f), -1.f, 1.f);
+	MeshComponent->AddRelativeLocation(FVector(0.f, 0.f, hoverValue));
 }

@@ -46,15 +46,15 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
 
-void ADungeonProjectCharacter::Heal(int amount)
+void ADungeonProjectCharacter::Heal(int healAmount)
 {
-	health += amount;
+	health += healAmount;
 }
 
 void ADungeonProjectCharacter::Interact()
 {
 	FVector spherePos = GetActorLocation();
-	float sphereRadius = 42.f; 
+	float sphereRadius = 84.f; 
 	TArray<TEnumAsByte<EObjectTypeQuery>> query;
 	TArray<AActor*> ignore;
 	TArray<AActor*> out;
@@ -70,11 +70,44 @@ void ADungeonProjectCharacter::Interact()
 	}
 }
 
+void ADungeonProjectCharacter::TakeDamage(int damageAmount)
+{
+	health -= damageAmount;
+
+	if (health <= 0)
+	{
+		Death();
+	}
+}
+
+void ADungeonProjectCharacter::Death()
+{
+}
+
 void ADungeonProjectCharacter::LockOn()
 {
 
 }
 
+void ADungeonProjectCharacter::UsePotion()
+{
+	if (potionCount > 0)
+	{
+		if (health < maxHealth)
+		{
+			health++;
+			potionCount--;
+		}
+	}
+}
+
+void ADungeonProjectCharacter::LightAttack()
+{
+}
+
+void ADungeonProjectCharacter::HeavyAttack()
+{
+}
 
 void ADungeonProjectCharacter::Tick(float DeltaTime)
 {
@@ -90,11 +123,15 @@ void ADungeonProjectCharacter::SetupPlayerInputComponent(class UInputComponent* 
 	PlayerInputComponent->BindAction("Roll", IE_Pressed, this, &ADungeonProjectCharacter::Roll);
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &ADungeonProjectCharacter::Interact);
 	PlayerInputComponent->BindAction("LockOn", IE_Pressed, this, &ADungeonProjectCharacter::Interact);
+	PlayerInputComponent->BindAction("UsePotion", IE_Pressed, this, &ADungeonProjectCharacter::UsePotion);
+	PlayerInputComponent->BindAction("LightAttack", IE_Pressed, this, &ADungeonProjectCharacter::LightAttack);
+	PlayerInputComponent->BindAction("HeavyAttack", IE_Pressed, this, &ADungeonProjectCharacter::HeavyAttack);
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADungeonProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADungeonProjectCharacter::MoveRight);
 
 }
+
 
 void ADungeonProjectCharacter::Roll()
 {

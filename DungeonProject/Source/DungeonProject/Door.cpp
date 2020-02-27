@@ -3,35 +3,8 @@
 
 #include "Door.h"
 #include "InteractableWidget.h"
-#include "Components/StaticMeshComponent.h"
 #include "Components/WidgetComponent.h"
-#include "Components/BoxComponent.h"
 #include "DungeonProjectCharacter.h"
-
-ADoor::ADoor() 
-{
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
-
-	MeshComponent->SetRelativeLocation(FVector(-90.f, 0.f, -100.f));
-
-	WidgetComponent->SetRelativeLocation(FVector(0.f, 100.f, 250.f));
-}
-
-void ADoor::Interact(ADungeonProjectCharacter* Character)
-{
-	if (IsLocked)
-	{
-		InteractText = "DOOR'S LOCKED...";
-	}
-	else
-	{
-		if (!IsOpen)
-		{
-			IsOpen = true;
-			InteractText = "";
-		}
-	}
-}
 
 void ADoor::NotifyActorBeginOverlap(AActor* OtherActor)
 {

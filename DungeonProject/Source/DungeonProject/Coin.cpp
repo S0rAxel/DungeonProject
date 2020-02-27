@@ -18,7 +18,7 @@ ACoin::ACoin()
 
 	MeshComponent->SetRelativeScale3D(FVector(0.7f));
 	MeshComponent->SetSimulatePhysics(true);
-	MeshComponent->SetMassOverrideInKg(NAME_None, 20.f);
+	MeshComponent->SetMassOverrideInKg(NAME_None, 1.f);
 
 	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereCollider"));
 	SphereComponent->AttachToComponent(MeshComponent, FAttachmentTransformRules::KeepRelativeTransform);

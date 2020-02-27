@@ -33,4 +33,6 @@ private:
 protected:
 	void Interact(class ADungeonProjectCharacter* Character) override;
 	void NotifyActorBeginOverlap(AActor* OtherActor) override;
+
+	UFUNCTION(BlueprintCallable) void SpawnCoins();
 };

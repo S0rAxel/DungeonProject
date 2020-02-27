@@ -37,7 +37,13 @@ void AInteractable::BeginPlay()
 	}
 }
 
-void AInteractable::Interact(ADungeonProjectCharacter* Character) { } //Called when interacted with object 
+void AInteractable::Interact(ADungeonProjectCharacter* Character) 
+{ 
+	if (SoundCue != nullptr)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, SoundCue, GetActorLocation());
+	}
+}
 
 void AInteractable::NotifyActorBeginOverlap(AActor* OtherActor) 
 {

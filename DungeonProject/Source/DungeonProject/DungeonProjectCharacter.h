@@ -31,8 +31,6 @@ public:
 	FVector characterPosition = { 0, 0, 0 };
 
 protected:
-	void Roll();
-
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 	/** Called for side to side input */
@@ -40,16 +38,25 @@ protected:
 
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	
+
 public:
-	void Heal(int amount);
-	void Interact();
-	void LockOn();
+	void Heal(int healAmount);
 	
+	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
+
 	virtual void Tick(float DeltaTime) override;
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+private:
+	void Death();
+	void Interact();
+	void UsePotion();
+	void Roll();
+	void LockOn();
+	void LightAttack();
+	void HeavyAttack();
 };
 

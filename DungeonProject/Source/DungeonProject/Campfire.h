@@ -25,6 +25,5 @@ public:
 
 protected:
 	void Interact(class ADungeonProjectCharacter* Character) override;
-
 	
 };

@@ -21,6 +21,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, meta = (DisplayName = "Widget")) class UWidgetComponent* WidgetComponent;
 
+	UPROPERTY(EditDefaultsOnly) class USoundCue* SoundCue;
+
 	UPROPERTY(EditAnywhere) FString InteractText;
 
 protected:

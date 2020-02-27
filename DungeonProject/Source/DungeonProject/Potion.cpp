@@ -7,6 +7,8 @@
 
 void APotion::Interact(ADungeonProjectCharacter* Character)
 {
+	Super::Interact(Character);
+
 	if (Character != nullptr)
 	{
 		Character->potionCount++;

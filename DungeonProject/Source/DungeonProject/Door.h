@@ -15,15 +15,15 @@ class DUNGEONPROJECT_API ADoor : public AInteractable
 	GENERATED_BODY()
 
 public:
-    ADoor();
+
+    UPROPERTY(EditDefaultsOnly) class USoundCue* LockDoorCue;
 
     bool IsLocked = true;
     
-private:
+protected:
     bool IsOpen = false;
 
 protected:
-    void Interact(class ADungeonProjectCharacter* Character) override;
     void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 };

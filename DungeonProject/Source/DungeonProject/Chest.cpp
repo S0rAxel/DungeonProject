@@ -12,35 +12,49 @@
 #include "Components/WidgetComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 
-AChest::AChest() 
+AChest::AChest()
 {
 	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
 
 	PivotPoint = CreateAbstractDefaultSubobject<USceneComponent>(TEXT("PivotPoint"));
 	PivotPoint->AttachToComponent(MeshComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	
+
 	MeshChestTop = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ChestTop"));
 	MeshChestTop->AttachToComponent(PivotPoint, FAttachmentTransformRules::KeepRelativeTransform);
-	
+
 	SpawnPoint = CreateDefaultSubobject<USceneComponent>(TEXT("SpawnPoint"));
 	SpawnPoint->AttachToComponent(BoxComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void AChest::Interact(ADungeonProjectCharacter* Character)
 {
-	IsOpen = true;
-	Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
-
-	for (size_t i = 0; i < CoinsInChest; i++)
+	if (!IsOpen)
 	{
-		if (CoinBlueprint)
+		IsOpen = true;
+
+		Super::Interact(Character);
+
+		Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
+
+		FLatentActionInfo actionInfo;
+		actionInfo.CallbackTarget = this;
+		actionInfo.ExecutionFunction = "SpawnCoins";
+		actionInfo.Linkage = 0;
+		UKismetSystemLibrary::MoveComponentTo(PivotPoint, PivotPoint->GetRelativeLocation(), FRotator(0.f, 0.f, -70.f), false, true, 0.5f, false, EMoveComponentAction::Move, actionInfo);
+	}
+}
+
+void AChest::SpawnCoins()
+{
+	if (CoinBlueprint != nullptr)
+	{
+		for (size_t i = 0; i < CoinsInChest; i++)
 		{
 			FActorSpawnParameters spawnParameters;
-
-			ACoin* CoinReference = GetWorld()->SpawnActor<ACoin>(CoinBlueprint, GetTransform(), spawnParameters);
+			ACoin* coinReference = GetWorld()->SpawnActor<ACoin>(CoinBlueprint, SpawnPoint->GetComponentLocation(), UKismetMathLibrary::RandomRotator());
+			coinReference->MeshComponent->SetLinearDamping(5.0f);
+			coinReference->MeshComponent->SetAngularDamping(5.0f);
 		}
-		//GetWorld()->SpawnActor<CoinObject>(SpawnPoint->GetComponentLocation(), UKismetMathLibrary::RandomRotator());
-		//Cast<UPrimitiveComponent>(spawnedCoin)->AddForce(SpawnPoint->GetForwardVector() * 2000.f);
 	}
 }
 
@@ -62,3 +76,4 @@ void AChest::NotifyActorBeginOverlap(AActor* OtherActor)
 		}
 	}
 }
+

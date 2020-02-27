@@ -20,13 +20,22 @@ ADoorKey::ADoorKey()
 
 void ADoorKey::Interact(ADungeonProjectCharacter* Character)
 {
+	Super::Interact(Character);
+
 	if (Character != nullptr)
 	{
-		if (Door != nullptr)
+		if (Doors.Num() > 0)
 		{
-			Door->IsLocked = false;
-			Destroy();
+			for (size_t i = 0; i < Doors.Num(); i++)
+			{
+				if (Doors[i] != nullptr)
+				{
+					Doors[i]->IsLocked = false;
+				}
+			}
 		}
+
+		Destroy();
 	}
 }
 

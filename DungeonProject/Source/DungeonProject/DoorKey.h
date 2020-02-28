@@ -17,7 +17,7 @@ public:
     ADoorKey();
 
 protected:
-    UPROPERTY(EditAnywhere) TArray<class ADoor*> Doors;
+    UPROPERTY(EditAnywhere, meta = (DisplayPriority = 1)) TArray<class ADoor*> Doors;
 
 protected:
     void Interact(class ADungeonProjectCharacter* Character) override;

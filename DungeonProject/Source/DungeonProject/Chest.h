@@ -25,7 +25,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly) TSubclassOf<class ACoin> CoinBlueprint;
 
-	UPROPERTY(EditAnywhere) int16 CoinsInChest;
+	UPROPERTY(EditAnywhere, meta = (ClampMin = 2), meta = (ClampMax = 100), meta = (DisplayPriority = 1)) int16 CoinsInChest;
 
 private:
 	bool IsOpen;

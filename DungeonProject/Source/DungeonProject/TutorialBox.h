@@ -19,7 +19,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere) class UWidgetComponent* WidgetComponent;
 
-	UPROPERTY(EditAnywhere) FString Text;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (DisplayPriority = 1))  FString Text;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
+	virtual void NotifyActorEndOverlap(AActor* OtherActor) override;
 
 public:
 	// Called every frame

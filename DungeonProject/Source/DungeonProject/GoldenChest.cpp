@@ -61,7 +61,6 @@ void AGoldenChest::NotifyActorBeginOverlap(AActor* OtherActor)
 			else
 			{
 				Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Visible);
-				InteractText = "(E) OPEN";
 			}
 		}
 	}

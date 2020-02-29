@@ -23,7 +23,7 @@ public:
 
 	UPROPERTY(EditDefaultsOnly) class USoundCue* SoundCue;
 
-	UPROPERTY(EditAnywhere) FString InteractText;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (DisplayPriority = 1)) FString InteractText;
 
 protected:
 	// Called when the game starts or when spawned

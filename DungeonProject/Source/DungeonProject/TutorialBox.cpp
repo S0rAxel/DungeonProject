@@ -33,7 +33,7 @@ void ATutorialBox::BeginPlay()
 	if (widget != nullptr)
 	{
 		widget->TutorialBox = this;
-		widget->SetVisibility(ESlateVisibility::Hidden);
+		widget->SetVisibility(WidgetVisibility);
 	}
 }
 

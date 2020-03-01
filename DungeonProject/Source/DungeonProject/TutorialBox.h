@@ -21,6 +21,8 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (DisplayPriority = 1))  FString Text;
 
+	UPROPERTY(EditInstanceOnly) ESlateVisibility WidgetVisibility;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

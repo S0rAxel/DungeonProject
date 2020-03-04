@@ -52,8 +52,8 @@ void AChest::SpawnCoins()
 		{
 			FActorSpawnParameters spawnParameters;
 			ACoin* coinReference = GetWorld()->SpawnActor<ACoin>(CoinBlueprint, SpawnPoint->GetComponentLocation(), UKismetMathLibrary::RandomRotator());
-			coinReference->MeshComponent->SetLinearDamping(5.f);
-			coinReference->MeshComponent->SetAngularDamping(5.f);
+			coinReference->MeshComponent->SetLinearDamping(10.f);
+			coinReference->MeshComponent->SetAngularDamping(10.f);
 		}
 	}
 }

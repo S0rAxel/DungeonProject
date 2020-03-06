@@ -2,20 +2,18 @@
 
 
 #include "Chest.h"
-#include "Engine.h"
 #include "Coin.h"
 #include "InteractableWidget.h"
 #include "DungeonProjectCharacter.h"
-#include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 AChest::AChest()
 {
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
-
 	PivotPoint = CreateAbstractDefaultSubobject<USceneComponent>(TEXT("PivotPoint"));
 	PivotPoint->AttachToComponent(MeshComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
@@ -54,6 +52,8 @@ void AChest::SpawnCoins()
 			ACoin* coinReference = GetWorld()->SpawnActor<ACoin>(CoinBlueprint, SpawnPoint->GetComponentLocation(), UKismetMathLibrary::RandomRotator());
 			coinReference->MeshComponent->SetLinearDamping(10.f);
 			coinReference->MeshComponent->SetAngularDamping(10.f);
+
+			coinReference->MeshComponent->AddImpulse(MeshComponent->GetRightVector() * FVector(5000.f));
 		}
 	}
 }

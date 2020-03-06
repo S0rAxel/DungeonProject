@@ -4,19 +4,7 @@
 #include "DoorKey.h"
 #include "Door.h"
 #include "Engine.h"
-#include "Components/BoxComponent.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/WidgetComponent.h"
-#include "Kismet/KismetMathLibrary.h"
-
-ADoorKey::ADoorKey() 
-{
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
-
-	MeshComponent->SetRelativeLocation(FVector(0.f, 0.f, -40.f));
-
-	WidgetComponent->SetRelativeLocation(FVector(0.f, 0.f, 150.f));
-}
 
 void ADoorKey::Interact(ADungeonProjectCharacter* Character)
 {

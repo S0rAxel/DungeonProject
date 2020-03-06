@@ -21,10 +21,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere) class USceneComponent* PivotPoint;
 
-	UPROPERTY(EditAnywhere) TSubclassOf<class AInteractable> InteractableBlueprint;
+	UPROPERTY(EditInstanceOnly, meta = (DisplayPriority = 1)) TSubclassOf<class AInteractable> InteractableBlueprint;
 
+    UPROPERTY(EditInstanceOnly, meta = (DisplayPriority = 1)) TArray<class ADoor*> Doors;
+	
 private:
-	bool IsOpen;
+	bool IsOpen = false;
 
 protected:
 	void Interact(class ADungeonProjectCharacter* Character) override;

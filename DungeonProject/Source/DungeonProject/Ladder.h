@@ -15,9 +15,7 @@ class DUNGEONPROJECT_API ALadder : public AInteractable
 	GENERATED_BODY()
 	
 public:
-	ALadder();
-
-	UPROPERTY(EditInstanceOnly, meta = (DisplayPriority = 1)) FString NextLevelName;
+	UPROPERTY(EditInstanceOnly, meta = (DisplayPriority = 1)) FName LevelToLoad;
 
 protected:
 	void Interact(class ADungeonProjectCharacter* Character) override;

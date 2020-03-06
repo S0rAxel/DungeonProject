@@ -5,21 +5,12 @@
 #include "Engine.h"
 #include "InteractableWidget.h"
 #include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
 #include "Components/WidgetComponent.h"
 
 ADoubleDoor::ADoubleDoor()
 {
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
-
-	MeshComponent->SetRelativeLocation(FVector(180.f, 0.f, -100.f));
-	MeshComponent->SetRelativeRotation(FRotator(0.f, 180.f, 0.f));
-	
-	WidgetComponent->SetRelativeLocation(FVector(0.f, 100.f, 250.f));
-
 	SecondDoor = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SecondMesh"));
 	SecondDoor->AttachToComponent(BoxComponent, FAttachmentTransformRules::KeepRelativeTransform);
-	SecondDoor->SetRelativeLocation(FVector(-180.f, 0.f, -100.f));
 }
 
 void ADoubleDoor::Interact(ADungeonProjectCharacter* Character)

@@ -14,9 +14,6 @@ class DUNGEONPROJECT_API ASingleDoor : public ADoor
 {
 	GENERATED_BODY()
 
-public:
-    ASingleDoor();
-
 protected:
     void Interact(class ADungeonProjectCharacter* Character) override;
 };

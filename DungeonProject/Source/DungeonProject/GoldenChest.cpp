@@ -2,18 +2,16 @@
 
 
 #include "GoldenChest.h"
-#include "Engine.h"
+#include "DoorKey.h"
 #include "InteractableWidget.h"
 #include "DungeonProjectCharacter.h"
-#include "Components/StaticMeshComponent.h"
-#include "Components/BoxComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 #include "Components/SceneComponent.h"
 #include "Components/WidgetComponent.h"
+#include "Components/StaticMeshComponent.h"
 
 AGoldenChest::AGoldenChest()
 {
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 100.f));
-
 	PivotPoint = CreateAbstractDefaultSubobject<USceneComponent>(TEXT("PivotPoint"));
 	PivotPoint->AttachToComponent(MeshComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
@@ -44,7 +42,15 @@ void AGoldenChest::SpawnObject()
 	if (InteractableBlueprint != nullptr)
 	{
 		FActorSpawnParameters spawnParameters;
-		GetWorld()->SpawnActor<AInteractable>(InteractableBlueprint, GetTransform(), spawnParameters);
+		auto objectReference = GetWorld()->SpawnActor<AInteractable>(InteractableBlueprint, GetTransform(), spawnParameters);
+
+		if (Cast<ADoorKey>(objectReference))
+		{
+			if (Doors.Num() > 0)
+			{
+				Cast<ADoorKey>(objectReference)->Doors = this->Doors;
+			}
+		}
 	}
 }
 

@@ -42,8 +42,8 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
-	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
+	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
+	 are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
 }
 
 void ADungeonProjectCharacter::Heal(int healAmount)
@@ -53,14 +53,14 @@ void ADungeonProjectCharacter::Heal(int healAmount)
 
 void ADungeonProjectCharacter::Interact()
 {
-	FVector spherePos = GetActorLocation();
+	FVector spherePosition = GetActorLocation();
 	float sphereRadius = 84.f; 
 	TArray<TEnumAsByte<EObjectTypeQuery>> query;
-	TArray<AActor*> ignore;
-	TArray<AActor*> out;
-	UKismetSystemLibrary::SphereOverlapActors(this, spherePos, sphereRadius, query, AInteractable::StaticClass(), ignore, out);
+	TArray<AActor*> actorToIgnore;
+	TArray<AActor*> outActors;
+	UKismetSystemLibrary::SphereOverlapActors(this, spherePosition, sphereRadius, query, AInteractable::StaticClass(), actorToIgnore, outActors);
 
-	for (auto actor : out)
+	for (auto actor : outActors)
 	{
 		auto interactable = Cast<AInteractable>(actor);
 		if (interactable != nullptr)

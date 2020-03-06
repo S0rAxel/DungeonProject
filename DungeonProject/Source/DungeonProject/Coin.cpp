@@ -27,13 +27,12 @@ void ACoin::NotifyActorBeginOverlap(AActor* OtherActor)
 	auto character = Cast<ADungeonProjectCharacter>(OtherActor);
 	if (character != nullptr)
 	{
-		character->goldCount++;
-
 		if (SoundCue != nullptr)
 		{
 			UGameplayStatics::PlaySoundAtLocation(this, SoundCue, GetActorLocation());
 		}
 
+		character->goldCount++;
 		Destroy();
 	}
 }

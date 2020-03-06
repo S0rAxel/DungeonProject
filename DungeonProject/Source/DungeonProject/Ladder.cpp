@@ -2,19 +2,16 @@
 
 
 #include "Ladder.h"
-#include "Engine.h"
+#include "Kismet/GameplayStatics.h"
 #include "DungeonProjectCharacter.h"
-#include "Components/BoxComponent.h"
-
-ALadder::ALadder()
-{
-	BoxComponent->SetBoxExtent(FVector(200.f, 200.f, 200.f));
-}
 
 void ALadder::Interact(ADungeonProjectCharacter* Character)
 {
 	if (Character != nullptr)
 	{
-		UGameplayStatics::OpenLevel(GetWorld(), "LevelName");
+		if (LevelToLoad != "")
+		{
+			UGameplayStatics::OpenLevel(this, LevelToLoad);
+		}
 	}
 }

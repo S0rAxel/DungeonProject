@@ -13,11 +13,9 @@ UCLASS()
 class DUNGEONPROJECT_API ADoorKey : public AInteractable
 {
 	GENERATED_BODY()
-public:
-    ADoorKey();
 
-protected:
-    UPROPERTY(EditAnywhere, meta = (DisplayPriority = 1)) TArray<class ADoor*> Doors;
+public:
+    UPROPERTY(EditInstanceOnly, meta = (DisplayPriority = 1)) TArray<class ADoor*> Doors;
 
 protected:
     void Interact(class ADungeonProjectCharacter* Character) override;

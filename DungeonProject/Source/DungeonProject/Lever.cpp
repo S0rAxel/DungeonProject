@@ -2,19 +2,16 @@
 
 
 #include "Lever.h"
-#include "Engine.h"
 #include "Door.h"
 #include "GateDoor.h"
 #include "InteractableWidget.h"
 #include "DungeonProjectCharacter.h"
-#include "Components/BoxComponent.h"
 #include "Components/WidgetComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 ALever::ALever()
 {
-	BoxComponent->SetBoxExtent(FVector(100.f, 100.f, 100.f));
-
 	LeverMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("LeverMesh"));
 	LeverMesh->AttachToComponent(MeshComponent, FAttachmentTransformRules::KeepRelativeTransform);
 }
@@ -28,7 +25,6 @@ void ALever::Interact(ADungeonProjectCharacter* Character)
 		Super::Interact(Character);
 
 		Cast<UInteractableWidget>(WidgetComponent->GetUserWidgetObject())->SetVisibility(ESlateVisibility::Hidden);
-
 
 		FLatentActionInfo actionInfo;
 		actionInfo.CallbackTarget = this;

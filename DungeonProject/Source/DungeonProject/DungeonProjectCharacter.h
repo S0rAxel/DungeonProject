@@ -21,11 +21,11 @@ public:
 	ADungeonProjectCharacter();
 
 public:
-	float health = 1.0f;
-	float maxHealth = 1.0f;
+	int health = 3;
+	int maxHealth = 3;
+	int goldCount = 0;
+	int potionCount = 0;
 	UPROPERTY(BlueprintReadOnly) int humanity = 0;
-	UPROPERTY(BlueprintReadOnly) int goldCount = 0;
-	UPROPERTY(BlueprintReadOnly) int potionCount = 0;
 
 	FVector characterPosition = { 0, 0, 0 };
 
@@ -61,4 +61,3 @@ private:
 	void LightAttack();
 	void HeavyAttack();
 };
-

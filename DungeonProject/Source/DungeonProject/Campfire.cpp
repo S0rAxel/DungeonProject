@@ -28,6 +28,6 @@ void ACampfire::Interact(ADungeonProjectCharacter* Character)
 
 	if (Character != nullptr)
 	{
-		Character->Heal(Character->maxHealth);
+		Character->health = Character->maxHealth;
 	}
 }

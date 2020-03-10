@@ -47,11 +47,6 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	 are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
 }
 
-void ADungeonProjectCharacter::Heal(int healAmount)
-{
-	health += healAmount;
-}
-
 void ADungeonProjectCharacter::Interact()
 {
 	FVector spherePosition = GetActorLocation();

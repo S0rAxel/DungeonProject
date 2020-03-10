@@ -29,12 +29,19 @@ public:
 
 	FVector characterPosition = { 0, 0, 0 };
 
+private:
+	bool IsRolling = false;
+	bool IsAttacking = false;
+	bool IsLockedOn = false;
+	bool IsDeath = false;
+
 protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 public:
 	void Heal(int healAmount);

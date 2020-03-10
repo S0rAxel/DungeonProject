@@ -11,6 +11,7 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Kismet/KismetMathLibrary.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ADungeonProjectCharacter
@@ -82,6 +83,10 @@ void ADungeonProjectCharacter::TakeDamage(int damageAmount)
 
 void ADungeonProjectCharacter::Death()
 {
+	IsDeath = true;
+	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Red, "YOU ARE DEAD");
+
+	UGameplayStatics::GetPlayerController(this, 0)->bShowMouseCursor = true;
 }
 
 void ADungeonProjectCharacter::LockOn()
@@ -109,6 +114,15 @@ void ADungeonProjectCharacter::HeavyAttack()
 {
 }
 
+void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+	
+	if (Cast<AKillZVolume>(OtherActor))
+	{
+		Death();
+	}
+}
+
 void ADungeonProjectCharacter::Tick(float DeltaTime)
 {
 
@@ -129,13 +143,20 @@ void ADungeonProjectCharacter::SetupPlayerInputComponent(class UInputComponent* 
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &ADungeonProjectCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ADungeonProjectCharacter::MoveRight);
-
 }
-
 
 void ADungeonProjectCharacter::Roll()
 {
-
+	if (!IsRolling)
+	{
+		if (UKismetMathLibrary::Dot_VectorVector(GetActorForwardVector(), GetVelocity()) != 0.f)
+		{
+			IsRolling = true;
+			GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, "IF number 1");
+			GetCharacterMovement()->MaxWalkSpeed = 800.f;
+			IsRolling = false;
+		}
+	}
 }
 
 void ADungeonProjectCharacter::MoveForward(float Value)

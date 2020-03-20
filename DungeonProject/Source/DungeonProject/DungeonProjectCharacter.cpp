@@ -6,6 +6,8 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/BoxComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -20,7 +22,6 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 {
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
-
 
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -42,6 +43,12 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+
+	SwordMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SwordMesh"));
+	SwordMesh->AttachToComponent(Mesh, FAttachmentTransformRules::KeepRelativeTransform, "RightHand");
+
+	SwordCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("SwordCollision"));
+	SwordCollision->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform);
 
 	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	 are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
@@ -79,7 +86,14 @@ void ADungeonProjectCharacter::TakeDamage(int damageAmount)
 void ADungeonProjectCharacter::Death()
 {
 	IsDeath = true;
+	IsLockedOn = false;
 	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Red, "YOU ARE DEAD");
+	GetCharacterMovement()->DisableMovement();
+	
+	if (DeathMontage != nullptr)
+	{
+		PlayAnimMontage(DeathMontage);
+	}
 
 	UGameplayStatics::GetPlayerController(this, 0)->bShowMouseCursor = true;
 }
@@ -111,7 +125,6 @@ void ADungeonProjectCharacter::HeavyAttack()
 
 void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
 {
-	
 	if (Cast<AKillZVolume>(OtherActor))
 	{
 		Death();
@@ -147,8 +160,7 @@ void ADungeonProjectCharacter::Roll()
 		if (UKismetMathLibrary::Dot_VectorVector(GetActorForwardVector(), GetVelocity()) != 0.f)
 		{
 			IsRolling = true;
-			GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Green, "IF number 1");
-			GetCharacterMovement()->MaxWalkSpeed = 800.f;
+			PlayAnimMontage(RollMontage);
 			IsRolling = false;
 		}
 	}

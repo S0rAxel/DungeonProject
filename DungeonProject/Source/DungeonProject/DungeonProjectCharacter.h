@@ -21,6 +21,15 @@ public:
 	ADungeonProjectCharacter();
 
 public:
+
+	UPROPERTY(VisibleAnywhere) UStaticMeshComponent* SwordMesh;
+
+	UPROPERTY(VisibleAnywhere) class UBoxComponent* SwordCollision;
+
+	UPROPERTY(EditDefaultsOnly) class UAnimMontage* RollMontage;
+
+	UPROPERTY(EditDefaultsOnly) class UAnimMontage* DeathMontage;
+
 	int health = 3;
 	int maxHealth = 3;
 	int goldCount = 0;
@@ -44,8 +53,6 @@ protected:
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 public:
-	void Heal(int healAmount);
-	
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
 
 	virtual void Tick(float DeltaTime) override;

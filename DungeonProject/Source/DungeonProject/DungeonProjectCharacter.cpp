@@ -45,7 +45,7 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	SwordMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SwordMesh"));
-	SwordMesh->AttachToComponent(Mesh, FAttachmentTransformRules::KeepRelativeTransform, "RightHand");
+	SwordMesh->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform, "RightHand");
 
 	SwordCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("SwordCollision"));
 	SwordCollision->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform);

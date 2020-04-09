@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Interactable.h"
+#include "Engine/TargetPoint.h"
 #include "Campfire.generated.h"
 
 /**
@@ -23,7 +24,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere) class UPointLightComponent* PointLightComponent;
 
+	UPROPERTY(VisibleAnywhere) TArray<ATargetPoint*> EnemySpawnPoints;
+
 protected:
+	virtual void BeginPlay() override;
 	void Interact(class ADungeonProjectCharacter* Character) override;
-	
 };

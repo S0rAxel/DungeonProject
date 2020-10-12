@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Components/SlateWrapperTypes.h"
 #include "GameFramework/Actor.h"
 #include "TutorialBox.generated.h"
 

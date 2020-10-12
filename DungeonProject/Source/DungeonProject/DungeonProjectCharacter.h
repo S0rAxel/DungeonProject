@@ -29,11 +29,13 @@ public:
 	UPROPERTY(EditDefaultsOnly) class UAnimMontage* RollMontage;
 
 	UPROPERTY(EditDefaultsOnly) class UAnimMontage* DeathMontage;
+	
+	UPROPERTY(EditAnywhere) TSubclassOf<class UCharacterWidget> CharacterHUD;
 
-	int health = 3;
-	int maxHealth = 3;
-	int goldCount = 0;
-	int potionCount = 0;
+	UPROPERTY(BlueprintReadOnly) int health = 6;
+	UPROPERTY(BlueprintReadOnly) int maxHealth = 6;
+	UPROPERTY(BlueprintReadOnly) int goldCount = 0;
+	UPROPERTY(BlueprintReadOnly) int potionCount = 0;
 	UPROPERTY(BlueprintReadOnly) int humanity = 0;
 
 	FVector characterPosition = { 0, 0, 0 };
@@ -52,10 +54,12 @@ protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
 public:
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
 
-	virtual void Tick(float DeltaTime) override;
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 

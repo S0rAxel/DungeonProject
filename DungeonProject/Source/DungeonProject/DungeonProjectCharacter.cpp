@@ -3,12 +3,14 @@
 #include "DungeonProjectCharacter.h"
 #include "Engine.h"
 #include "Interactable.h"
+#include "CharacterWidget.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/InputComponent.h"
+#include "Components/WidgetComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -45,13 +47,24 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
 	SwordMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SwordMesh"));
-	SwordMesh->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform, "RightHand");
+	SwordMesh->AttachToComponent(Mesh, FAttachmentTransformRules::KeepRelativeTransform, "RightHand");
 
 	SwordCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("SwordCollision"));
 	SwordCollision->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform);
 
 	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	 are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
+}
+
+void ADungeonProjectCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+#pragma region HUD
+	auto widget = CreateWidget<UCharacterWidget>(UGameplayStatics::GetPlayerController(this, 0), CharacterHUD);
+	widget->Character = this;
+	widget->AddToViewport();
+#pragma endregion
 }
 
 void ADungeonProjectCharacter::Interact()
@@ -109,8 +122,12 @@ void ADungeonProjectCharacter::UsePotion()
 	{
 		if (health < maxHealth)
 		{
-			health++;
+			health += 2;
 			potionCount--;
+			if (health > maxHealth)
+			{
+				health = maxHealth;
+			}
 		}
 	}
 }
@@ -130,6 +147,7 @@ void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
 		Death();
 	}
 }
+
 
 void ADungeonProjectCharacter::Tick(float DeltaTime)
 {

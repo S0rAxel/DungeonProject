@@ -18,6 +18,8 @@ void AEnemy::BeginPlay()
 	
 }
 
+void AEnemy::Attack() { }
+
 // Called every frame
 void AEnemy::Tick(float DeltaTime)
 {

@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Interfaces/ILabel.h"
 #include "Interactable.generated.h"
 
 UCLASS()
-class DUNGEONPROJECT_API AInteractable : public AActor
+class DUNGEONPROJECT_API AInteractable : public AActor, public IILabel
 {
 	GENERATED_BODY()
 	

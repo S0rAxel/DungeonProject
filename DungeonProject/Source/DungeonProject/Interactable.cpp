@@ -18,7 +18,6 @@ AInteractable::AInteractable()
 	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	MeshComponent->AttachToComponent(BoxComponent,FAttachmentTransformRules::KeepRelativeTransform);
 
-
 	WidgetComponent = CreateDefaultSubobject<UWidgetComponent>(TEXT("Widget"));
 	WidgetComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 	WidgetComponent->AttachToComponent(BoxComponent, FAttachmentTransformRules::KeepRelativeTransform);

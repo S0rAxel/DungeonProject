@@ -105,6 +105,7 @@ void ADungeonProjectCharacter::Death()
 	
 	if (DeathMontage != nullptr)
 	{
+		DeathMontage->bEnableAutoBlendOut = false;
 		PlayAnimMontage(DeathMontage);
 	}
 

@@ -75,4 +75,3 @@ void AChest::NotifyActorBeginOverlap(AActor* OtherActor)
 		}
 	}
 }
-

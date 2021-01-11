@@ -21,7 +21,6 @@ public:
 	ADungeonProjectCharacter();
 
 public:
-
 	UPROPERTY(VisibleAnywhere) UStaticMeshComponent* SwordMesh;
 
 	UPROPERTY(VisibleAnywhere) class UBoxComponent* SwordCollision;
@@ -40,11 +39,12 @@ public:
 
 	FVector characterPosition = { 0, 0, 0 };
 
+	UPROPERTY(BlueprintReadWrite) bool IsAttacking = false;
+	UPROPERTY(BlueprintReadOnly) bool IsRolling = false;
+	UPROPERTY(BlueprintReadOnly) bool IsDeath = false;
+
 private:
-	bool IsRolling = false;
-	bool IsAttacking = false;
 	bool IsLockedOn = false;
-	bool IsDeath = false;
 
 protected:
 	void MoveForward(float Value);
@@ -59,6 +59,8 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
+	UFUNCTION(BlueprintCallable) void LightAttack();
+	UFUNCTION(BlueprintCallable) void HeavyAttack();
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -69,6 +71,6 @@ private:
 	void UsePotion();
 	void Roll();
 	void LockOn();
-	void LightAttack();
-	void HeavyAttack();
+	//void LightAttack();
+	//void HeavyAttack();
 };

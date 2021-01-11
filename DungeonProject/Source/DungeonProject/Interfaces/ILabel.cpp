@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Components/WidgetComponent.h"
 #include "ILabel.h"
+#include "Components/WidgetComponent.h"
 
 void IILabel::RotateTextWidget(UWidgetComponent TextWidgetComponent)
 {

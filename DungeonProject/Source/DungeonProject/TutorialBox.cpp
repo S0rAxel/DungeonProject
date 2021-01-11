@@ -66,8 +66,6 @@ void ATutorialBox::Tick(float DeltaTime)
 
 	auto camera = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0);
 
-	
-	
 	if (camera != nullptr)
 	{
 		FRotator desiredRotation = UKismetMathLibrary::FindLookAtRotation(WidgetComponent->GetComponentLocation(), camera->GetCameraLocation());

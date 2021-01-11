@@ -52,7 +52,7 @@ ADungeonProjectCharacter::ADungeonProjectCharacter()
 	SwordCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("SwordCollision"));
 	SwordCollision->AttachToComponent(SwordMesh, FAttachmentTransformRules::KeepRelativeTransform);
 
-	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
+	/* Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character)
 	 are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++) */
 }
 
@@ -70,7 +70,7 @@ void ADungeonProjectCharacter::BeginPlay()
 void ADungeonProjectCharacter::Interact()
 {
 	FVector spherePosition = GetActorLocation();
-	float sphereRadius = 84.f; 
+	float sphereRadius = 84.f;
 	TArray<TEnumAsByte<EObjectTypeQuery>> query;
 	TArray<AActor*> actorToIgnore;
 	TArray<AActor*> outActors;
@@ -102,7 +102,7 @@ void ADungeonProjectCharacter::Death()
 	IsLockedOn = false;
 	GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Red, "YOU ARE DEAD");
 	GetCharacterMovement()->DisableMovement();
-	
+
 	if (DeathMontage != nullptr)
 	{
 		DeathMontage->bEnableAutoBlendOut = false;
@@ -179,8 +179,15 @@ void ADungeonProjectCharacter::Roll()
 		if (UKismetMathLibrary::Dot_VectorVector(GetActorForwardVector(), GetVelocity()) != 0.f)
 		{
 			IsRolling = true;
-			PlayAnimMontage(RollMontage);
-			IsRolling = false;
+			if (!Mesh->GetAnimInstance()->Montage_IsPlaying(RollMontage))
+			{
+				PlayAnimMontage(RollMontage);
+				IsRolling = false;
+			}
+			else
+			{
+				IsRolling = false;
+			}
 		}
 	}
 }

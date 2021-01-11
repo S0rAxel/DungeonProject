@@ -16,25 +16,30 @@ public:
 	AEnemy();
 
 public:
-	int Health;
-
+	int HealthPoint;
+	int GoldToDrop;
+	
 private:
+	UPROPERTY(EditDefaultsOnly) class UStaticMeshComponent* MeshComponent;
+	//UPROPERTY(EditDefaultsOnly) class UBehaviorTree* EnemyBehaviorTree;
+	
+	UPROPERTY(EditDefaultsOnly) class UAnimMontage* IdleMontage;
+	UPROPERTY(EditDefaultsOnly) class UAnimMontage* PatrolMontage;
+	UPROPERTY(EditDefaultsOnly) TArray<UAnimMontage*> AttackMontages;
+	UPROPERTY(EditDefaultsOnly) class UAnimMontage* DeathMontage;
 	class UMaterialInstance* MaterialInstance;
 
+	bool IsIdle = true;
+	bool IsPatrolling = false;
 	bool IsAttacking = false;
-
-	float HitValue;
-
+	bool IsDead = false;
+	float MovementSpeed = 100;
+	float DamageValue;
+	
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
 	virtual void Attack();
+	
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };

@@ -40,11 +40,9 @@ public:
 	FVector characterPosition = { 0, 0, 0 };
 
 	UPROPERTY(BlueprintReadWrite) bool IsAttacking = false;
+	UPROPERTY(BlueprintReadWrite) bool IsLockedOn = false;
 	UPROPERTY(BlueprintReadOnly) bool IsRolling = false;
 	UPROPERTY(BlueprintReadOnly) bool IsDeath = false;
-
-private:
-	bool IsLockedOn = false;
 
 protected:
 	void MoveForward(float Value);
@@ -61,6 +59,7 @@ public:
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
 	UFUNCTION(BlueprintCallable) void LightAttack();
 	UFUNCTION(BlueprintCallable) void HeavyAttack();
+	UFUNCTION(BlueprintCallable) void LockOn();
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -70,7 +69,6 @@ private:
 	void Interact();
 	void UsePotion();
 	void Roll();
-	void LockOn();
 	//void LightAttack();
 	//void HeavyAttack();
 };

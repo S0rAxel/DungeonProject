@@ -18,16 +18,16 @@ public:
 public:
 	int HealthPoint;
 	int GoldToDrop;
-	
+
 private:
 	UPROPERTY(EditDefaultsOnly) class UStaticMeshComponent* MeshComponent;
-	//UPROPERTY(EditDefaultsOnly) class UBehaviorTree* EnemyBehaviorTree;
-	
-	UPROPERTY(EditDefaultsOnly) class UAnimMontage* IdleMontage;
-	UPROPERTY(EditDefaultsOnly) class UAnimMontage* PatrolMontage;
-	UPROPERTY(EditDefaultsOnly) TArray<UAnimMontage*> AttackMontages;
-	UPROPERTY(EditDefaultsOnly) class UAnimMontage* DeathMontage;
-	class UMaterialInstance* MaterialInstance;
+	UPROPERTY(EditDefaultsOnly) class UMaterialInstance* OnHitMaterialInstance;
+	UPROPERTY(EditDefaultsOnly, Category = "AI") class UBehaviorTree* Behavior;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* IdleMontage;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* PatrolMontage;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") TArray<UAnimMontage*> AttackMontages;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* DeathMontage;
 
 	bool IsIdle = true;
 	bool IsPatrolling = false;
@@ -35,11 +35,11 @@ private:
 	bool IsDead = false;
 	float MovementSpeed = 100;
 	float DamageValue;
-	
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Attack();
-	
-public:	
+
+public:
 	virtual void Tick(float DeltaTime) override;
 };

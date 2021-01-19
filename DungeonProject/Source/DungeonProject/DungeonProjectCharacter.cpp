@@ -135,12 +135,10 @@ void ADungeonProjectCharacter::UsePotion()
 
 void ADungeonProjectCharacter::LightAttack()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, "Light Attack");
 }
 
 void ADungeonProjectCharacter::HeavyAttack()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Heavy Attack");
 }
 
 void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)

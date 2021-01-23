@@ -149,10 +149,10 @@ void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
 	}
 }
 
-void ADungeonProjectCharacter::Tick(float DeltaTime)
+/*void ADungeonProjectCharacter::Tick(float DeltaTime)
 {
 
-}
+}*/
 
 #pragma region Input & Movement
 

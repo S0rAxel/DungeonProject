@@ -53,7 +53,7 @@ protected:
 	virtual void NotifyActorBeginOverlap(AActor* OtherActor) override;
 
 	virtual void BeginPlay() override;
-	virtual void Tick(float DeltaTime) override;
+	//virtual void Tick(float DeltaTime) override;
 
 public:
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);

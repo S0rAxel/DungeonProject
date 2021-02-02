@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/WidgetComponent.h"
 #include "Enemy.generated.h"
 
 UCLASS()
@@ -16,25 +17,27 @@ public:
 	AEnemy();
 
 public:
+	UPROPERTY(EditDefaultsOnly, Category = "AI") class UBehaviorTree* Behavior;
+	UPROPERTY(EditDefaultsOnly, Category = "Widget") class UWidgetComponent* TargetWidget;
 	int HealthPoint;
 	int GoldToDrop;
 
-private:
-	UPROPERTY(EditDefaultsOnly) class UStaticMeshComponent* MeshComponent;
-	UPROPERTY(EditDefaultsOnly) class UMaterialInstance* OnHitMaterialInstance;
-	UPROPERTY(EditDefaultsOnly, Category = "AI") class UBehaviorTree* Behavior;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* IdleMontage;
-	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* PatrolMontage;
-	UPROPERTY(EditDefaultsOnly, Category = "Montage") TArray<UAnimMontage*> AttackMontages;
-	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* DeathMontage;
-
+protected:
 	bool IsIdle = true;
 	bool IsPatrolling = false;
 	bool IsAttacking = false;
 	bool IsDead = false;
 	float MovementSpeed = 100;
 	float DamageValue;
+	
+private:
+	UPROPERTY(EditDefaultsOnly) class UStaticMeshComponent* MeshComponent;
+	UPROPERTY(EditDefaultsOnly, Category = "Material") class UMaterialInstance* OnHitMaterialInstance;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* IdleMontage;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* PatrolMontage;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") TArray<UAnimMontage*> AttackMontages;
+	UPROPERTY(EditDefaultsOnly, Category = "Montage") class UAnimMontage* DeathMontage;
 
 protected:
 	virtual void BeginPlay() override;

@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "BehaviorTree/BlackboardData.h"
 #include "EnemyAIController.generated.h"
 
 /**
@@ -17,9 +20,12 @@ class DUNGEONPROJECT_API AEnemyAIController : public AAIController
 public:
 	AEnemyAIController();
 	virtual void OnPossess(APawn* InPawn) override;
+
+protected:
+	UPROPERTY(Transient) class UBlackboardData* BlackboardData;
+	uint8 KeyID;
 	
 private:
-	UPROPERTY(Transient) class UBlackBoardComponent* BlackBoard;
 	UPROPERTY(Transient) class UBehaviorTreeComponent* BehaviorTreeComponent;
-
+	UPROPERTY(Transient) class UBlackboardComponent* BlackboardComponent;
 };

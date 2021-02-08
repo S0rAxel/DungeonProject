@@ -14,12 +14,12 @@ class DUNGEONPROJECT_API AEnemyAIController : public AAIController
 {
 	GENERATED_BODY()
 
-public:
+/*public:
 	AEnemyAIController();
 	virtual void OnPossess(APawn* InPawn) override;
 	
 private:
 	UPROPERTY(Transient) class UBlackBoardComponent* BlackBoard;
-	UPROPERTY(Transient) class UBehaviorTreeComponent* BehaviorTreeComponent;
+	UPROPERTY(Transient) class UBehaviorTreeComponent* BehaviorTreeComponent;*/
 
 };

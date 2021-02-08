@@ -4,6 +4,7 @@
 #include "Engine.h"
 #include "Interactable.h"
 #include "CharacterWidget.h"
+#include "Enemy.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -114,7 +115,21 @@ void ADungeonProjectCharacter::Death()
 
 void ADungeonProjectCharacter::LockOn()
 {
+	FVector spherePosition = GetActorLocation();
+	float sphereRadius = 150.f;
+	TArray<TEnumAsByte<EObjectTypeQuery>> query;
+	TArray<AActor*> actorToIgnore;
+	TArray<AActor*> outActors;
+	UKismetSystemLibrary::SphereOverlapActors(this, spherePosition, sphereRadius, query, AEnemy::StaticClass(), actorToIgnore, outActors);
 
+	for (auto actor : outActors)
+	{
+		auto enemy = Cast<AEnemy>(actor);
+		if (enemy != nullptr)
+		{
+			
+		}
+	}
 }
 
 void ADungeonProjectCharacter::UsePotion()

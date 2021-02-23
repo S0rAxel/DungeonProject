@@ -63,8 +63,11 @@ void ADungeonProjectCharacter::BeginPlay()
 
 #pragma region HUD
 	auto widget = CreateWidget<UCharacterWidget>(UGameplayStatics::GetPlayerController(this, 0), CharacterHUD);
-	widget->Character = this;
-	widget->AddToViewport();
+	if (widget)
+	{
+		widget->Character = this;
+		widget->AddToViewport();
+	}
 #pragma endregion
 }
 

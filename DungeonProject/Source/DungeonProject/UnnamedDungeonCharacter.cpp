@@ -1,6 +1,26 @@
-// Copyright 1998-2019 Epic Games, Inc. All Rights Reserved.
-
 #include "UnnamedDungeonCharacter.h"
+#include "HeadMountedDisplayFunctionLibrary.h"
+#include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/Controller.h"
+
+//////////////////////////////////////////////////////////////////////////
+// AUnnamedDungeonCharacter
+
+AUnnamedDungeonCharacter::AUnnamedDungeonCharacter()
+{
+	// Create a follow camera
+	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+}
+
+void AUnnamedDungeonCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
+{
+	// Set up gameplay key bindings
+	check(PlayerInputComponent);
+}
+
+/*#include "UnnamedDungeonCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -131,4 +151,4 @@ void AUnnamedDungeonCharacter::MoveRight(float Value)
 		// add movement in that direction
 		AddMovementInput(Direction, Value);
 	}
-}
+}*/

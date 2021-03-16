@@ -57,9 +57,12 @@ protected:
 
 public:
 	UFUNCTION(BlueprintCallable) void TakeDamage(int damageAmount);
-	UFUNCTION(BlueprintCallable) void LightAttack();
-	UFUNCTION(BlueprintCallable) void HeavyAttack();
+	//UFUNCTION(BlueprintCallable) void LightAttack();
+	//UFUNCTION(BlueprintCallable) void HeavyAttack();
 	UFUNCTION(BlueprintCallable) void LockOn();
+
+	UFUNCTION(BlueprintImplementableEvent) void LightAttack();
+	UFUNCTION(BlueprintImplementableEvent) void HeavyAttack();
 
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
@@ -69,6 +72,5 @@ private:
 	void Interact();
 	void UsePotion();
 	void Roll();
-	//void LightAttack();
-	//void HeavyAttack();
+
 };

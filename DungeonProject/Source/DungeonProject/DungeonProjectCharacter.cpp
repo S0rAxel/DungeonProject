@@ -151,13 +151,13 @@ void ADungeonProjectCharacter::UsePotion()
 	}
 }
 
-void ADungeonProjectCharacter::LightAttack()
+/*void ADungeonProjectCharacter::LightAttack()
 {
-}
+}*/
 
-void ADungeonProjectCharacter::HeavyAttack()
+/*void ADungeonProjectCharacter::HeavyAttack()
 {
-}
+}*/
 
 void ADungeonProjectCharacter::NotifyActorBeginOverlap(AActor* OtherActor)
 {

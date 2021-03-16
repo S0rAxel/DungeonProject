@@ -1,6 +1,6 @@
 #include "UnnamedDungeonCharacter.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
-#include "Camera/CameraComponent.h"
+//#include "Camera/CameraComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
@@ -11,7 +11,7 @@
 AUnnamedDungeonCharacter::AUnnamedDungeonCharacter()
 {
 	// Create a follow camera
-	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	//FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 }
 
 void AUnnamedDungeonCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)

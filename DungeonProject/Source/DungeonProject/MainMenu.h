@@ -18,9 +18,14 @@ public:
 	AMainMenu(const FObjectInitializer& ObjectInitializer);
 
 	UPROPERTY(EditAnywhere) TSubclassOf<class UMainMenuWidget> MainMenuWidgetClass;
+	
+	//UPROPERTY(EditAnywhere) ULevelSequence* MenuSequence;
+	//UPROPERTY() class ULevelSequencePlayer* SequencePlayer;
 
 public:
 	virtual void BeginPlay() override;
 	void ShowWidget();
+
+	UFUNCTION(BlueprintImplementableEvent) void PlaySequence();
 
 };

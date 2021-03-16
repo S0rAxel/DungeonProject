@@ -12,8 +12,8 @@ class AUnnamedDungeonCharacter : public ACharacter
 	GENERATED_BODY()
 
 	/** Follow camera */
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	class UCameraComponent* FollowCamera;
+	//UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	//class UCameraComponent* FollowCamera;
 public:
 	AUnnamedDungeonCharacter();
 
@@ -24,6 +24,6 @@ protected:
 
 public:
 	/** Returns FollowCamera subobject **/
-	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+	//FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
 

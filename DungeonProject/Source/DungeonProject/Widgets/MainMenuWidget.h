@@ -15,6 +15,8 @@ class DUNGEONPROJECT_API UMainMenuWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY() class AMainMenu* MainMenu_GM;
+
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UCanvasPanel* MainCanvas;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UCanvasPanel* OptionsCanvas;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UCanvasPanel* OMainCanvas;
@@ -32,12 +34,20 @@ public:
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* LoadGameSlot_2_Btn;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* LoadGameSlot_3_Btn;
 
-#pragma region Options button
+#pragma region Options
 
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* OGameplay_Btn;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* OControls_Btn;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* OVideo_Btn;
 	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UButton* OAudio_Btn;
+
+#pragma region Video
+
+	UPROPERTY(BlueprintReadWrite, meta = (BindWidget)) class UComboBoxString* Quality_CBS;
+
+#pragma endregion
+
+
 
 #pragma endregion
 
@@ -59,6 +69,8 @@ public:
 	UFUNCTION() void Continue();
 	UFUNCTION() void Options();
 	UFUNCTION() void Quit();
+
+	UFUNCTION(BlueprintCallable) void NewGameEndSequence();
 
 #pragma region Options Functions
 

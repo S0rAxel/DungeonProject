@@ -17,7 +17,7 @@ class DUNGEONPROJECT_API AMainMenu : public AGameModeBase
 public:
 	AMainMenu(const FObjectInitializer& ObjectInitializer);
 
-	UPROPERTY(EditAnywhere) TSubclassOf<class UMainMenuWidget> MainMenuWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly) TSubclassOf<class UMainMenuWidget> MainMenuWidgetClass;
 	
 	//UPROPERTY(EditAnywhere) ULevelSequence* MenuSequence;
 	//UPROPERTY() class ULevelSequencePlayer* SequencePlayer;
@@ -27,5 +27,6 @@ public:
 	void ShowWidget();
 
 	UFUNCTION(BlueprintImplementableEvent) void PlaySequence();
+	UFUNCTION(BlueprintImplementableEvent) void PlaySequenceMainMenuEnd();
 
 };

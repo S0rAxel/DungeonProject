@@ -5,11 +5,15 @@
 #include "MainMenuWidget.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
+#include "Components/ComboBoxString.h"
+#include "DungeonProject/MainMenu.h"
 #include "GameFrameWork/PlayerController.h"
 
 void UMainMenuWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	MainMenu_GM = Cast<AMainMenu>(UGameplayStatics::GetGameMode(GetWorld()));
 
 	MainCanvas->SetVisibility(ESlateVisibility::Visible);
 	LoadGameCanvas->SetVisibility(ESlateVisibility::Hidden);
@@ -117,29 +121,30 @@ void UMainMenuWidget::NativeConstruct()
 	return true;
 }*/
 
-void UMainMenuWidget::NewGame()
+void UMainMenuWidget::NewGame() 
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Start Game");
+	MainMenu_GM->PlaySequenceMainMenuEnd();
+}
+
+void UMainMenuWidget::NewGameEndSequence()
+{
 	UGameplayStatics::OpenLevel(GetWorld(), FName(TEXT("TutorialMap"))); 
 
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 
 	if (PlayerController != nullptr)
 	{
-		FInputModeGameAndUI InputModeData;
-		InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
+		FInputModeGameOnly InputModeData;
+		//InputModeData.SetHideCursorDuringCapture(true); 
+		//InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
 
-		PlayerController->bShowMouseCursor = false;
 		PlayerController->SetInputMode(InputModeData);
+		PlayerController->bShowMouseCursor = false;
 	}
-
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Start Game");
 }
 
 void UMainMenuWidget::LoadGame()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Load Game");
-	
 	MainCanvas->SetVisibility(ESlateVisibility::Hidden);
 	LoadGameCanvas->SetVisibility(ESlateVisibility::Visible);
 }
@@ -162,8 +167,6 @@ void UMainMenuWidget::Continue()
 
 void UMainMenuWidget::Options()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Options are being shown");
-
 	MainCanvas->SetVisibility(ESlateVisibility::Hidden);
 	OptionsCanvas->SetVisibility(ESlateVisibility::Visible);
 }
@@ -238,8 +241,6 @@ void UMainMenuWidget::BackOAudio()
 
 void UMainMenuWidget::Quit()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, "Quit");
-
 	auto playerController = UGameplayStatics::GetPlayerController(this, 0);
 
 	//playerController->ConsoleCommand("quit");

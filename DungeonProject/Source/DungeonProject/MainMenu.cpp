@@ -29,7 +29,7 @@ void AMainMenu::BeginPlay()
 
 void AMainMenu::ShowWidget()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Begin PLay showing widget");
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, "Begin Play showing widget");
 
 	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 

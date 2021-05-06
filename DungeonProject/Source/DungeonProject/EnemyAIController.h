@@ -4,9 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "BehaviorTree/BehaviorTree.h"
-#include "BehaviorTree/BlackboardComponent.h"
-#include "BehaviorTree/BlackboardData.h"
 #include "EnemyAIController.generated.h"
 
 /**
@@ -21,11 +18,19 @@ public:
 	AEnemyAIController();
 	virtual void OnPossess(APawn* InPawn) override;
 
+	inline uint8 GetKeyID() const;
+
 protected:
 	UPROPERTY(Transient) class UBlackboardData* BlackboardData;
-	uint8 KeyID;
 	
 private:
 	UPROPERTY(Transient) class UBehaviorTreeComponent* BehaviorTreeComponent;
 	UPROPERTY(Transient) class UBlackboardComponent* BlackboardComponent;
+	uint8 KeyID;
 };
+
+inline uint8 AEnemyAIController::GetKeyID() const
+{
+	return KeyID;
+}
+

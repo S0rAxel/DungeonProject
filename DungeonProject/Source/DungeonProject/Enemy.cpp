@@ -8,9 +8,12 @@ AEnemy::AEnemy()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
+
+	// Lock-on mechanism widget
 	TargetWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("Target Widget Component"));
 	TargetWidget->SetVisibility(false);
+
+	
 }
 
 void AEnemy::BeginPlay()
